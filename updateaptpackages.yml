@@ -1,2 +1,12 @@
-- name: Upgrade all apt packages
-   apt: state=latest force_apt_get=yes
+---
+  
+- hosts: all
+  vars:
+    ansible_host_key_checking: false ##If you get an error about hosts not trusted
+  become: true
+
+  tasks:
+    - name: Update and upgrade apt packages
+      apt:
+        update_cache: yes
+        upgrade: yes
