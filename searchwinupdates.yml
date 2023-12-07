@@ -1,3 +1,7 @@
+---
+
+
+tasks:
 - name: Search-only
   ansible.windows.win_updates:
     category_names: SecurityUpdates
