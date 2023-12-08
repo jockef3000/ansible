@@ -1,6 +1,13 @@
-- name: Choose which Windows updates to install
-  win_updates:
-    category_names:
-      - SecurityUpdates
-      - CriticalUpdates
-      - UpdateRollups
+- name: Run Updates on App Servers and wait 10 mins
+  hosts: all
+  connection: winrm
+
+  tasks:
+    win_updates:
+      category_names:
+        - CriticalUpdates
+        - DefinitionUpdates
+        - SecurityUpdates
+        - Updates
+    reboot: yes
+    reboot_timeout: 600
