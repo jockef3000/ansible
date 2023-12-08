@@ -1,9 +1,13 @@
 ---
 
 
-tasks:
-- name: Search-only
-  ansible.windows.win_updates:
-    category_names: SecurityUpdates
-    state: searched
-    log_path: C:\ansible_wu.txt
+  tasks:
+    win_updates:
+      category_names:
+        - Application
+        - CriticalUpdates
+        - DefinitionUpdates
+        - SecurityUpdates
+        - Updates
+    reboot: yes
+    reboot_timeout: 420
