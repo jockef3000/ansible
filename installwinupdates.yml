@@ -1,6 +1,8 @@
+---
+
 - name: Run Updates on App Servers and wait 10 mins
   hosts: all
-  connection: winrm
+  connection: ssh
 
   tasks:
     win_updates:
