@@ -1,2 +1,5 @@
-- name: Run an executable using win_command
-  win_command: whoami.exe
+- name: Execute a command on Windows
+  hosts: WINSERVER2022-APP1
+  tasks:
+    - name: Run a command
+      win_command: whoami.exe
