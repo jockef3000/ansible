@@ -1,0 +1,2 @@
+- name: Run an executable using win_command
+  win_command: whoami.exe
