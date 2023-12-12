@@ -16,11 +16,12 @@
         post_reboot_delay: 10
       when: update_result.reboot_required
 
-    - name: Check for pending reboots
-      win_reboot:
-        check: yes
-      register: reboot_status
+    - name: Check for pending reboots using cmd
+      win_shell: shutdown /q /f
+      register: pending_reboot_status
+      ignore_errors: true
 
     - name: Reboot if pending reboot exists
       win_reboot:
-      when: reboot_status.reboot_required | default(false)
+        reboot_timeout: 300  # Set a timeout for the reboot (in seconds)
+      when: pending_reboot_status.rc != 0
