@@ -1,4 +1,5 @@
 - name: Execute a command on Windows
+  hosts: WINSERVER2022-APP1
   vars:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
   tasks:

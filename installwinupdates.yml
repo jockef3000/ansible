@@ -1,7 +1,7 @@
 ---
 
 - name: Run Updates on App Servers and wait 10 mins
-  hosts: all
+  hosts: WINSERVER2022-APP1
   connection: ssh
 
   tasks:
