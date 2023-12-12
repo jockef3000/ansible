@@ -1,5 +1,3 @@
----
-
 - name: Run Updates on App Servers and wait 10 mins
   hosts: WINSERVER2022-APP1
   vars:
