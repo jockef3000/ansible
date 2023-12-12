@@ -4,11 +4,22 @@
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 
   tasks:
-    win_updates:
-      category_names:
-        - CriticalUpdates
-        - DefinitionUpdates
-        - SecurityUpdates
-        - Updates
-    reboot: yes
-    reboot_timeout: 600
+    - name: Install all available updates
+      win_updates:
+        category_names: ['CriticalUpdates', 'SecurityUpdates', 'Updates', 'DefinitionUpdates']
+        state: installed
+      register: update_result
+
+    - name: Reboot if required after updates
+      win_reboot:
+        post_reboot_delay: 10
+      when: update_result.reboot_required
+
+    - name: Check for pending reboots
+      win_reboot:
+        check: yes
+      register: reboot_required
+
+    - name: Reboot if pending reboot exists
+      win_reboot:
+      when: reboot_required.pending_reboot_found
