@@ -1,5 +1,6 @@
 - name: Run Updates on App Servers and wait 10 mins
   hosts: WINSERVER2022-APP1
+  gather_facts: no
   vars:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 
@@ -18,8 +19,8 @@
     - name: Check for pending reboots
       win_reboot:
         check: yes
-      register: reboot_required
+      register: reboot_status
 
     - name: Reboot if pending reboot exists
       win_reboot:
-      when: reboot_required.pending_reboot_found
+      when: reboot_status.reboot_required | default(false)
