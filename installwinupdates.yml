@@ -1,5 +1,5 @@
 - name: Run Updates on App Servers and wait 10 mins
-  hosts: WINSERVER2022-APP1
+  hosts: all
   gather_facts: no
   vars:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
@@ -13,7 +13,7 @@
 
     - name: Reboot if required after updates
       win_reboot:
-        post_reboot_delay: 10
+        post_reboot_delay: 15
       when: update_result.reboot_required
 
     - name: Check for pending reboots using cmd
@@ -23,5 +23,5 @@
 
     - name: Reboot if pending reboot exists
       win_reboot:
-        reboot_timeout: 300  # Set a timeout for the reboot (in seconds)
+        reboot_timeout: 600  # Set a timeout for the reboot (in seconds)
       when: pending_reboot_status.rc != 0
