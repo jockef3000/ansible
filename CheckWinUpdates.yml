@@ -1,0 +1,17 @@
+- name: Check for Windows Updates and report back
+  hosts: all
+  vars:
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+  tasks:
+
+    - name: Check for missing updates
+      win_updates:
+        state: searched
+      register: update_results
+
+    - name: report update results
+      debug:
+        msg: |
+          {% for k in update_results.updates %}
+          {{ k.title }}
+          {% endfor %}
