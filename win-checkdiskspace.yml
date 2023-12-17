@@ -1,5 +1,7 @@
 - name: check free disk space
   hosts: all
+  vars:
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
   tasks:
     - name: 'Check free space in C:'
       win_shell: 'write-host ([math]::Round((Get-PSDrive C | Select-Object Free).free / 1024 / 1024 / 1024,2))'
