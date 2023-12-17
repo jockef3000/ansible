@@ -7,7 +7,7 @@
 
     - name: report free disk space
       debug:
-        msg: |
+        msg:
           "{{ freespace.stdout }} GB"
 
     - name: fail if there is not enough space
