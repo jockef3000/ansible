@@ -1,5 +1,6 @@
 - name: Check for Windows Updates and report back
   hosts: all
+  gather_facts: no
   vars:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
   tasks:
