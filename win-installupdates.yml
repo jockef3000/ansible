@@ -1,4 +1,4 @@
-- name: Run Updates on App Servers and wait 10 mins
+- name: Run Updates on Servers and wait 10 mins
   hosts: all
   gather_facts: no
   vars:
