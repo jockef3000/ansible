@@ -1,4 +1,4 @@
-- name: Run Updates on Servers and wait 10 mins
+- name: Run Updates on Servers and wait 15 mins
   hosts: all
   gather_facts: no
   vars:
@@ -15,3 +15,8 @@
       win_reboot:
         post_reboot_delay: 15
       when: update_result.reboot_required
+
+    - name: writing host and update to log
+      shell: echo host:{{inventory_hostname}} ,title:{{ item.value.title }} ,kb number:{{ item.value.kb }}
+      loop: "{{ update_result.updates | dict2items }}"
+      delegate_to: localhost
