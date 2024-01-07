@@ -1,0 +1,9 @@
+- hosts: containerpi1
+  vars:
+    ansible_host_key_checking: false ##If you get an error about hosts not trusted
+  tasks:
+    - name: Transfer homeassistant backup to backup directory
+      synchronize:
+        src: /opt/config/motioneye
+        dest: /mnt/arkiv2/backup/motioneye
+      delegate_to: containerpi1
