@@ -1,4 +1,4 @@
-- name: Run Updates on App Servers and wait 10 mins
+- name: Run Updates on Servers and wait 15 mins
   hosts: all
   gather_facts: no
   vars:
@@ -16,12 +16,7 @@
         post_reboot_delay: 15
       when: update_result.reboot_required
 
-    - name: Check for pending reboots using cmd
-      win_shell: shutdown /q /f
-      register: pending_reboot_status
-      ignore_errors: true
-
-    - name: Reboot if pending reboot exists
-      win_reboot:
-        reboot_timeout: 600  # Set a timeout for the reboot (in seconds)
-      when: pending_reboot_status.rc != 0
+    - name: writing log
+      shell: echo host:{{inventory_hostname}} ,title:{{ item.value.title }} ,kb number:{{ item.value.kb }}
+      loop: "{{ update_result.updates | dict2items }}"
+      delegate_to: localhost

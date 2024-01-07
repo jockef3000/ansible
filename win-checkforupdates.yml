@@ -16,3 +16,7 @@
           {% for k in update_results.updates %}
           {{ k.title }}
           {% endfor %}
+
+    - name: report update results2
+      shell: echo host:{{inventory_hostname}} ,title:{{ item.value.title }} ,kb number:{{ item.value.kb }}
+      loop: "{{ update_result.updates | dict2items }}"
