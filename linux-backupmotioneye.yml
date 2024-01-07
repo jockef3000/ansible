@@ -1,4 +1,4 @@
-- hosts: containerpi1
+- hosts: all
   vars:
     ansible_host_key_checking: false ##If you get an error about hosts not trusted
   tasks:
