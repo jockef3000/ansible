@@ -1,0 +1,7 @@
+- hosts: kitchenpi
+  tasks:
+    - name: Transfer homeassistant backup to backup directory
+      synchronize:
+        src: /opt/config/homeassistant/backup
+        dest: /mnt/arkiv2/backup/homeassistant
+      delegate_to: kitchenpi
