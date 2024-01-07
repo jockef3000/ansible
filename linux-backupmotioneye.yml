@@ -6,4 +6,4 @@
       synchronize:
         src: /opt/config/motioneye
         dest: /mnt/arkiv2/backup/motioneye
-      delegate_to: containerpi1
+        ##delegate_to: containerpi1.jocknet.se
