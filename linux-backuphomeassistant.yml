@@ -1,4 +1,6 @@
 - hosts: kitchenpi
+  vars:
+    ansible_host_key_checking: false ##If you get an error about hosts not trusted
   tasks:
     - name: Transfer homeassistant backup to backup directory
       synchronize:
