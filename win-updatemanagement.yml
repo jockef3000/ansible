@@ -3,7 +3,7 @@
 # Apply windows updates
 
 - name: Apply windows updates
-  hosts: All
+  hosts: all
   gather_facts: yes
   vars:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
