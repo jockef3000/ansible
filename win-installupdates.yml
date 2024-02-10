@@ -6,7 +6,8 @@
 
   tasks:
     - name: Install all available updates
-      win_updates:
+      #win_updates:
+      ansible.windows.win_updates:
         category_names: ['CriticalUpdates', 'SecurityUpdates', 'Updates', 'DefinitionUpdates']
         state: installed
         become: true
