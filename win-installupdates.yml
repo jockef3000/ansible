@@ -1,18 +1,15 @@
 - name: Run Updates on Servers and wait 15 mins
   hosts: all
   gather_facts: no
+  
   vars:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 
   tasks:
     - name: Install all available updates
-      #win_updates:
-      ansible.windows.win_updates:
+      win_updates:
         category_names: ['CriticalUpdates', 'SecurityUpdates', 'Updates', 'DefinitionUpdates']
         state: installed
-        become: true
-        become_method: runas
-        become_user: SYSTEM
       register: update_result
 
     - name: Reboot if required after updates
