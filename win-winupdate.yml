@@ -4,14 +4,34 @@
   vars:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
   tasks:
-    - name: create log path directory
-      win_file:
-        path: C:\temp\win-updates
-        state: directory
-    - name: install all updates
-      ansible.windows.win_updates:
-        category_names: '*'
-        log_path: C:\temp\win-updates\ansible_wu4.log
-        state: installed        
-        reboot: true
-        server_selection: windows_update
+  
+- name: Set PowerShell execution policy
+  ansible.builtin.raw: powershell.exe -ExecutionPolicy RemoteSigned -Command { Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force }
+
+- name: create log path directory
+  win_file:
+      path: C:\temp\win-updates
+      state: directory
+
+- name: Update the system to the latest patches
+  ansible.windows.win_updates:
+  category_names:
+      - CriticalUpdates
+      - SecurityUpdates
+      - UpdateRollups
+      - Updates
+      - Drivers
+      - DefinitionUpdates
+  log_path: C:\Windows\Temp\ansible_wu.txt
+  reboot: true
+  reboot_timeout: 3600
+  register: update_status
+  until: update_status.failed == false
+
+- name: Display the results from the patching
+  ansible.builtin.debug:
+    var: update_status
+
+- name: Reboot the system post patching to make sure everything comes up clean
+  ansible.windows.win_reboot:
+    reboot_timeout: 3600
