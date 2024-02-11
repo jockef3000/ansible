@@ -1,7 +1,0 @@
-
-- name: Set PowerShell execution policy
-  hosts: all
-  vars:
-    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-  tasks:
-  ansible.builtin.raw: powershell.exe -ExecutionPolicy RemoteSigned -Command { Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force }
