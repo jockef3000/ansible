@@ -5,5 +5,4 @@
   tasks:
     - name: Set PowerShell execution policy
       ansible.builtin.script: 
-        cmd: Set-ExecutionPolicy RemoteSigned -Force
-        executable: powershell.exe
+        cmd: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe Set-ExecutionPolicy RemoteSigned -Force
