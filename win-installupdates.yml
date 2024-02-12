@@ -10,6 +10,9 @@
       win_updates:
         category_names: ['CriticalUpdates', 'SecurityUpdates', 'Updates', 'DefinitionUpdates']
         state: installed
+      become: true
+      become_method: runas
+      become_user: SYSTEM
       register: update_result
 
     - name: Reboot if required after updates
