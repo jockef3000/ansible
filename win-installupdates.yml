@@ -8,7 +8,7 @@
   tasks:
     - name: Install all available updates
       win_updates:
-        category_names: ["CriticalUpdates", "SecurityUpdates", "UpdateRollups"]
+        category_names: ["CriticalUpdates", "SecurityUpdates", "UpdateRollups", "DefinitionUpdates"]
       become: true
       become_method: runas
       become_user: SYSTEM
