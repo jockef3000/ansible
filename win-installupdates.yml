@@ -12,6 +12,7 @@
           - SecurityUpdates
           - CriticalUpdates
           - UpdateRollups
+          - Definition Updates
       become: true
       become_method: runas
       become_user: SYSTEM
