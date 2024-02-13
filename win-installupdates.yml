@@ -8,8 +8,10 @@
   tasks:
     - name: Install all available updates
       win_updates:
-        category_names: '*'
-        state: installed
+        category_names:
+          - SecurityUpdates
+          - CriticalUpdates
+          - UpdateRollups
       become: true
       become_method: runas
       become_user: SYSTEM
