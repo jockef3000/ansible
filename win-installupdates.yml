@@ -1,4 +1,4 @@
-- name: Run Updates on Servers and wait 15 mins
+- name: Run Updates on Servers
   hosts: all
   gather_facts: no
   
@@ -14,10 +14,10 @@
       become_user: SYSTEM
       register: update_result
 
-    - name: Reboot if required after updates
-      win_reboot:
-        post_reboot_delay: 15
-      when: update_result.reboot_required
+#    - name: Reboot if required after updates
+#      win_reboot:
+#        post_reboot_delay: 15
+#     when: update_result.reboot_required
 
     - name: writing log
       shell: echo host:{{inventory_hostname}} ,title:{{ item.value.title }} ,kb number:{{ item.value.kb }}
