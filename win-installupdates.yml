@@ -8,16 +8,16 @@
   tasks:
     - name: Install all available updates
       win_updates:
-        category_names: ["CriticalUpdates", "SecurityUpdates", "UpdateRollups", "DefinitionUpdates"]
+        category_names: ["CriticalUpdates", "SecurityUpdates", "UpdateRollups"] #"DefinitionUpdates"
       become: true
       become_method: runas
       become_user: SYSTEM
       register: update_result
 
-#    - name: Reboot if required after updates
-#      win_reboot:
-#        post_reboot_delay: 15
-#     when: update_result.reboot_required
+    - name: Reboot if required after updates
+      win_reboot:
+        post_reboot_delay: 15
+      when: update_result.reboot_required
 
     - name: writing log
       shell: echo host:{{inventory_hostname}} ,title:{{ item.value.title }} ,kb number:{{ item.value.kb }}
