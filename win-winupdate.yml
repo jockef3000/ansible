@@ -1,12 +1,10 @@
 ---
 - name: install windows update
   hosts: all
+  gather_facts: no
   vars:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
   tasks:
-    - name: Set PowerShell execution policy
-      ansible.builtin.win_command: 
-        cmd: powershell.exe -ExecutionPolicy RemoteSigned"
     - name: create log path directory
       win_file:
         path: C:\temp\win-updates
