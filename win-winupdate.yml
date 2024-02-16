@@ -13,8 +13,7 @@
         state: directory
     - name: install all updates
       ansible.windows.win_updates:
-        category_names: '*'
+        category_names: ["CriticalUpdates", "SecurityUpdates", "UpdateRollups"] #"DefinitionUpdates"
         log_path: C:\temp\win-updates\ansible_wu4.log
         state: installed        
         reboot: true
-        server_selection: windows_update
