@@ -1,6 +1,8 @@
 
 - name: Synchronize Files Between Two Remote Hosts
   hosts: kitchenpi.jocknet.se
+  vars:
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
   #become: true  # If you need elevated privileges, set become to true
 
   tasks:
