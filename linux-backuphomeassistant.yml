@@ -1,12 +1,12 @@
 
 - name: Synchronize Files Between Two Remote Hosts
   hosts: kitchenpi.jocknet.se
-  become: true  # If you need elevated privileges, set become to true
+  #become: true  # If you need elevated privileges, set become to true
 
   tasks:
     - name: Synchronize files from source host to destination host
       synchronize:
-        src: /path/to/source/files
-        dest: /path/to/destination/files
+        src: /opt/config/homeassistant/backup
+        dest: /mnt/backup/homeassistant
       delegate_to: containerpi1.jocknet.se
-      become: true  # If you need elevated privileges on the destination host, set become to true
+      #become: true  # If you need elevated privileges on the destination host, set become to true
