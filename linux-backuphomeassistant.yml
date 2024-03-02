@@ -1,9 +1,12 @@
-- hosts: kitchenpi
-  vars:
-    ansible_host_key_checking: false ##If you get an error about hosts not trusted
+
+- name: Synchronize Files Between Two Remote Hosts
+  hosts: kitchenpi.jocknet.se
+  become: true  # If you need elevated privileges, set become to true
+
   tasks:
-    - name: Transfer homeassistant backup to backup directory
+    - name: Synchronize files from source host to destination host
       synchronize:
-        src: /opt/config/homeassistant/backup
-        dest: /mnt/arkiv2/backup/homeassistant
-      delegate_to: kitchenpi
+        src: /path/to/source/files
+        dest: /path/to/destination/files
+      delegate_to: containerpi1.jocknet.se
+      become: true  # If you need elevated privileges on the destination host, set become to true
