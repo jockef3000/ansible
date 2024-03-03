@@ -8,7 +8,7 @@
   tasks:
     - name: Synchronize files from source host to destination host
       synchronize:
-        src: /opt/config/homeassistant/backup
+        src: /opt/config/homeassistant/backups
         dest: /mnt/backup/homeassistant
       delegate_to: containerpi1.jocknet.se
       become: true  # If you need elevated privileges on the destination host, set become to true
