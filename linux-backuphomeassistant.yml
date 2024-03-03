@@ -3,7 +3,7 @@
   hosts: kitchenpi.jocknet.se
   vars:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-  #become: true  # If you need elevated privileges, set become to true
+  become: true  # If you need elevated privileges, set become to true
 
   tasks:
     - name: Synchronize files from source host to destination host
@@ -11,4 +11,4 @@
         src: /opt/config/homeassistant/backup
         dest: /mnt/backup/homeassistant
       delegate_to: containerpi1.jocknet.se
-      #become: true  # If you need elevated privileges on the destination host, set become to true
+      become: true  # If you need elevated privileges on the destination host, set become to true
