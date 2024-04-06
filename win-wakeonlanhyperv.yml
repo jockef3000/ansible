@@ -1,0 +1,4 @@
+- name: Send a magic Wake-on-LAN
+  community.general.wakeonlan:
+    mac: '18:03:73:25:ea:33'
+  delegate_to: localhost
