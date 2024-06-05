@@ -1,14 +1,23 @@
-
-- name: Synchronize Files Between Two Remote Hosts
+- name: Copy files from source to target
   hosts: kitchenpi.jocknet.se
   vars:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-  become: true  # If you need elevated privileges, set become to true
-
+  gather_facts: no
   tasks:
-    - name: Synchronize files from source host to destination host
+    - name: Fetch file from source host
+      fetch:
+        src: /opt/config/homeassistant/backup/test
+        dest: /tmp/test
+        flat: yes
+
+- name: Transfer files to target host
+  hosts: containerpi1.jocknet.se
+  vars:
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+  gather_facts: no
+  tasks:
+    - name: Synchronize files to target host
       synchronize:
-        src: /opt/config/homeassistant/backups
-        dest: /mnt/backup/homeassistant
-      delegate_to: containerpi1.jocknet.se
-      become: true  # If you need elevated privileges on the destination host, set become to true
+        src: /tmp/test
+        dest: /mnt/backup/homeassistant/test
+        mode: pull
