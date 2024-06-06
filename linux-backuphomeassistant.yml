@@ -1,9 +1,20 @@
+---
 - name: Copy files from source to target using SCP
-  hosts: kitchenpi.jocknet.se
+  hosts: all
   gather_facts: no
+  vars:
+    source_host: kitchenpi.jocknet.se
+    source_user: majorgonzo
+    source_file: /opt/config/homeassistant/backup/test
+    target_host: containerpi1.jocknet.se
+    target_user: majorgonzo
+    target_directory: /mnt/backup/homeassistant/test
+
   tasks:
     - name: Copy file from source to target
       shell: |
-        scp /opt/config/homeassistant/backup/test {{ majorgonzo }}@{{ hostvars['containerpi1.jocknet.se'].containerpi1.jocknet.se }}:/mnt/backup/homeassistant/test/
-      delegate_to: source_host
+        scp {{ source_user }}@{{ source_host }}:{{ source_file }} {{ target_user }}@{{ target_host }}:{{ target_directory }}
+      delegate_to: localhost
       run_once: true
+      environment:
+        ANSIBLE_HOST_KEY_CHECKING: "False"
