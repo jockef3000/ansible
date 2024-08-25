@@ -27,4 +27,4 @@
       file:
         path: "{{ source_directory }}"
         state: absent
-        recurse: yes
+        #recurse: yes
