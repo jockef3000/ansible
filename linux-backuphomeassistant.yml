@@ -1,20 +1,27 @@
 ---
-- name: Copy files from source to target using SCP
-  hosts: localhost
-  gather_facts: no
+- name: Copy files and then delete them
+  hosts: all
+  become: true
   vars:
-    source_host: kitchenpi.jocknet.se
-    source_user: majorgonzo
-    source_file: /opt/config/homeassistant/backup/15d1e9d5.tar
-    target_host: containerpi1.jocknet.se
-    target_user: majorgonzo
-    target_directory: /mnt/backup/homeassistant/
+    source_directory: /opt/config/homeassistant/backup
+    destination_directory: /mnt/backup
 
   tasks:
-    - name: Copy file from source to target
-      shell: |
-        scp {{ source_user }}@{{ source_host }}:{{ source_file }} {{ target_user }}@{{ target_host }}:{{ target_directory }}
-      delegate_to: localhost
-      run_once: true
-      environment:
-        ANSIBLE_HOST_KEY_CHECKING: "False"
+
+    - name: Ensure destination directory exists
+      file:
+        path: "{{ destination_directory }}"
+        state: directory
+        mode: '0755'
+
+    - name: Copy files from source to destination
+      copy:
+        src: "{{ source_directory }}/"
+        dest: "{{ destination_directory }}/"
+        remote_src: yes
+
+    - name: Delete files from source directory
+      file:
+        path: "{{ source_directory }}"
+        state: absent
+        recurse: yes
