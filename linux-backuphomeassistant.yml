@@ -5,7 +5,7 @@
   vars:
     source_host: kitchenpi.jocknet.se
     source_user: majorgonzo
-    source_file: /opt/config/homeassistant/backup/test
+    source_file: /opt/config/homeassistant/backup/15d1e9d5.tar
     target_host: containerpi1.jocknet.se
     target_user: majorgonzo
     target_directory: /mnt/backup/homeassistant/
