@@ -6,6 +6,7 @@
     source_directory: /opt/config/homeassistant/backups
     destination_directory: /mnt/backup
     ansible_host_key_checking: false
+    days_to_keep: 30
 
 
 
@@ -28,3 +29,17 @@
         path: "{{ source_directory }}"
         state: absent
         #recurse: yes
+   
+    - name: Find files older than 30 days in the destination directory
+      find:
+        paths: "{{ destination_directory }}"
+        age: "{{ days_to_keep }}d"
+        #recurse: yes
+      register: old_files
+
+    - name: Remove files older than 30 days from the destination directory
+      file:
+        path: "{{ item.path }}"
+        state: absent
+      loop: "{{ old_files.files }}"
+      when: old_files.matched > 0
