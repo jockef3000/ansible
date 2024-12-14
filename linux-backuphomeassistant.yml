@@ -1,7 +1,8 @@
 ---
 - name: Copy files and then delete them
   hosts: all
-  become: true
+  #become: true
+  become_user: root
   vars:
     source_directory: /opt/config/homeassistant/backups
     destination_directory: /mnt/backup
