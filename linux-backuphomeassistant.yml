@@ -1,5 +1,5 @@
 ---
-- name: Copy files and delete old files from source directory
+- name: Copy files and then delete them
   hosts: all
   become: true
   vars:
@@ -8,7 +8,10 @@
     ansible_host_key_checking: false
     days_to_keep: 30
 
+
+
   tasks:
+
     - name: Ensure destination directory exists
       file:
         path: "{{ destination_directory }}"
@@ -21,13 +24,20 @@
         dest: "{{ destination_directory }}/"
         remote_src: yes
 
-    - name: Find files older than 30 days in the source directory
+    - name: Delete files from source directory
+      file:
+        path: "{{ source_directory }}"
+        state: absent
+        #recurse: yes
+   
+    - name: Find files older than 30 days in the destination directory
       find:
-        paths: "{{ source_directory }}"
+        paths: "{{ destination_directory }}"
         age: "{{ days_to_keep }}d"
+        #recurse: yes
       register: old_files
 
-    - name: Remove files older than 30 days from the source directory
+    - name: Remove files older than 30 days from the destination directory
       file:
         path: "{{ item.path }}"
         state: absent
