@@ -24,22 +24,22 @@
         dest: "{{ destination_directory }}/"
         remote_src: yes
 
-    - name: Delete files from source directory
-      file:
-        path: "{{ source_directory }}"
-        state: absent
+    #- name: Delete files from source directory
+    #  file:
+    #    path: "{{ source_directory }}"
+    #    state: absent
         #recurse: yes
    
-    - name: Find files older than 30 days in the destination directory
-      find:
-        paths: "{{ destination_directory }}"
-        age: "{{ days_to_keep }}d"
+    #- name: Find files older than 30 days in the destination directory
+    #  find:
+    #    paths: "{{ destination_directory }}"
+    #    age: "{{ days_to_keep }}d"
         #recurse: yes
-      register: old_files
+    #  register: old_files
 
-    - name: Remove files older than 30 days from the destination directory
-      file:
-        path: "{{ item.path }}"
-        state: absent
-      loop: "{{ old_files.files }}"
-      when: old_files.matched > 0
+    #- name: Remove files older than 30 days from the destination directory
+    #  file:
+    #    path: "{{ item.path }}"
+    #    state: absent
+    #  loop: "{{ old_files.files }}"
+    #  when: old_files.matched > 0
